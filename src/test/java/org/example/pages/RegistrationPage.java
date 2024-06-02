@@ -25,6 +25,8 @@ public class RegistrationPage {
     private final By registrationButton = By.cssSelector("button[class*='type']");
     //Ошибка "Некорректный пароль"
     private final By errorPasswordMassage = By.cssSelector("p[class*='error']");
+    //Ссылка Войти
+    private final By logInLink = By.cssSelector("a[class^='Auth']");
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
@@ -59,5 +61,10 @@ public class RegistrationPage {
         errorPasswordText = driver.findElement(errorPasswordMassage).getText();
         assert driver.findElement(errorPasswordMassage).isDisplayed();
         assertEquals(errorPasswordText, expectedErrorPasswordText);
+    }
+
+    @Step("Click on LogIn link")
+    public void clickOnLogInLink() {
+        driver.findElement(logInLink).click();
     }
 }

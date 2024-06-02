@@ -1,19 +1,14 @@
 package org.example;
 
-import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.response.ValidatableResponse;
 import org.example.pages.LoginPage;
 import org.example.pages.MainPage;
 import org.example.pages.RegistrationPage;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-
-import static org.junit.Assert.assertEquals;
 
 public class RegistrationTest {
     private final UserClient client = new UserClient();

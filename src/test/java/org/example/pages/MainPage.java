@@ -15,6 +15,8 @@ public class MainPage {
     private final By accountButton = By.xpath("//a[@href='/account']");
     //Иконки ингредиентов
     private final By ingredientIcon = By.cssSelector("a[class^='BurgerIngredient']");
+    //Кнопка "Войти в аккаунт"
+    private final By logInButton = By.cssSelector("button[class*='button']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -36,5 +38,11 @@ public class MainPage {
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
                 .until(ExpectedConditions.numberOfElementsToBeMoreThan(ingredientIcon, 2));
         assert driver.findElement(ingredientIcon).isDisplayed();
+    }
+
+    @Step("Click on LogIn button on main page")
+    public LoginPage clickOnLogInButton() {
+        driver.findElement(logInButton).click();
+        return new LoginPage(driver);
     }
 }

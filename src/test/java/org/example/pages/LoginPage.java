@@ -12,13 +12,15 @@ import java.time.Duration;
 public class LoginPage {
     private final WebDriver driver;
     //ссылка Зарегистрироваться
-    private final By registraionlink = By.cssSelector("p[class$='mb-4'] a[class^='Auth']");
+    private final By registrationLink = By.cssSelector("p[class$='mb-4'] a[class^='Auth']");
     //кнопка Войти
     private final By loginButton = By.xpath("//button[contains(@class, 'button_') and contains(text(), 'Войти')]");
     //поле Пароль
     private final By passwordField = By.cssSelector("input[name='Пароль']");
     //поле Email
     private final By emailField = By.cssSelector("input[name='name']");
+    //Ссылка Восстановить пароль
+    private final By restorePasswordLink = By.xpath("//a[@href='/forgot-password']");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -27,9 +29,9 @@ public class LoginPage {
     @Step("Click on the Registration link")
     public RegistrationPage clickOnRegistrationLink() {
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
-                .until(ExpectedConditions.visibilityOfElementLocated(registraionlink));
+                .until(ExpectedConditions.visibilityOfElementLocated(registrationLink));
 
-        driver.findElement(registraionlink).click();
+        driver.findElement(registrationLink).click();
         return new RegistrationPage(driver);
     }
 
@@ -53,6 +55,14 @@ public class LoginPage {
 
     @Step("Enter the user email")
     public void enterUserEmail(String userEmail) {
+        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
+                .until(ExpectedConditions.visibilityOfElementLocated(emailField));
         driver.findElement(emailField).sendKeys(userEmail);
+    }
+
+    @Step("Click on Restore password link")
+    public RestorePasswordPage clickOnRestorePassLink() {
+        driver.findElement(restorePasswordLink).click();
+        return new RestorePasswordPage(driver);
     }
 }
