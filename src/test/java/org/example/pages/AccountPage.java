@@ -13,6 +13,10 @@ public class AccountPage {
     private final WebDriver driver;
     //Кнопка Профиль
     private final By profileButton = By.xpath("//a[contains(@href, 'profile')]");
+    //Логотип StellarBurgers
+    private final By logoButton = By.cssSelector("[class*=\"logo\"]");
+    //Кнопка Конструктор
+    private final By constructorButton = By.xpath("//*[text() = 'Конструктор']");
     //Кнопка Выход
     private By logOutButton = By.cssSelector("button[class*='Account']");
 
@@ -32,5 +36,14 @@ public class AccountPage {
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
                 .until(ExpectedConditions.visibilityOfElementLocated(profileButton));
         assert driver.findElement(profileButton).isDisplayed();
+    }
+
+    @Step("Click on logo")
+    public void clickOnLogo() {
+        driver.findElement(logoButton).click();
+    }
+
+    public void clickOnConstructor() {
+        driver.findElement(constructorButton).click();
     }
 }
