@@ -11,8 +11,10 @@ import java.time.Duration;
 
 public class AccountPage {
     private final WebDriver driver;
+    //Кнопка Профиль
+    private final By profileButton = By.xpath("//a[contains(@href, 'profile')]");
     //Кнопка Выход
-    private By logOutButton;
+    private By logOutButton = By.cssSelector("button[class*='Account']");
 
     public AccountPage(WebDriver driver) {
         this.driver = driver;
@@ -20,9 +22,15 @@ public class AccountPage {
 
     @Step("Click on LogOut button")
     public void clickOnLogOutButton() {
-        logOutButton = By.cssSelector("button[class*='Account']");
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
                 .until(ExpectedConditions.visibilityOfElementLocated(logOutButton));
         driver.findElement(logOutButton).click();
+    }
+
+    @Step("Check is Profile button is visible")
+    public void checkIsProfileButtonVisible() {
+        new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.DEFAULT_TIMEOUT))
+                .until(ExpectedConditions.visibilityOfElementLocated(profileButton));
+        assert driver.findElement(profileButton).isDisplayed();
     }
 }
