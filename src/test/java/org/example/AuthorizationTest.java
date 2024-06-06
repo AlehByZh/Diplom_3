@@ -13,6 +13,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class AuthorizationTest {
+    private WebDriver driver;
+    private MainPage main;
     private UserClient client = new UserClient();
     private String email;
     private String password;
@@ -26,14 +28,14 @@ public class AuthorizationTest {
         User createdUser = client.createUser();
         email = createdUser.getEmail();
         password = createdUser.getPassword();
+        driver = driverRule.getDriver();
+        main = new MainPage(driver);
+        main.open();
     }
 
     @DisplayName("Authorization happy path use LogIn main page button")
     @Test
     public void testLogInForMainPage() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnLogInButton();
         login.enterUserEmail(email);
         login.enterUserPassword(password);
@@ -47,9 +49,6 @@ public class AuthorizationTest {
     @DisplayName("Authorization happy path use Account button")
     @Test
     public void testLogInForAccountPage() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnAccountButton();
         login.enterUserEmail(email);
         login.enterUserPassword(password);
@@ -63,9 +62,6 @@ public class AuthorizationTest {
     @DisplayName("Authorization happy path use LogIn link on registration page")
     @Test
     public void testLogInForRegistrationPage() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnAccountButton();
         RegistrationPage registration = login.clickOnRegistrationLink();
         registration.clickOnLogInLink();
@@ -81,9 +77,6 @@ public class AuthorizationTest {
     @DisplayName("Authorization happy path use LogIn link on restore password page")
     @Test
     public void testLogInForRestorePasswordPage() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnLogInButton();
         RestorePasswordPage restore = login.clickOnRestorePassLink();
         restore.clickOnLogInButtonLink();

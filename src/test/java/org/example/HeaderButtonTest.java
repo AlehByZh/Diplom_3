@@ -12,6 +12,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class HeaderButtonTest {
+    private WebDriver driver;
+    private MainPage main;
     private UserClient client = new UserClient();
     private String email;
     private String password;
@@ -25,14 +27,14 @@ public class HeaderButtonTest {
         User createdUser = client.createUser();
         email = createdUser.getEmail();
         password = createdUser.getPassword();
+        driver = driverRule.getDriver();
+        main = new MainPage(driver);
+        main.open();
     }
 
     @DisplayName("Check move from Account to Logo")
     @Test
     public void moveFromAccountToLogoTest() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnLogInButton();
         login.enterUserEmail(email);
         login.enterUserPassword(password);
@@ -51,9 +53,6 @@ public class HeaderButtonTest {
     @DisplayName("Check move from Account to Constructor")
     @Test
     public void moveFromAccountToConstructorTest() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnLogInButton();
         login.enterUserEmail(email);
         login.enterUserPassword(password);

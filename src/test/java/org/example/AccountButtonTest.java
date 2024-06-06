@@ -12,6 +12,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class AccountButtonTest {
+    private WebDriver driver;
+    private MainPage main;
     private UserClient client = new UserClient();
     private String email;
     private String password;
@@ -25,14 +27,14 @@ public class AccountButtonTest {
         User createdUser = client.createUser();
         email = createdUser.getEmail();
         password = createdUser.getPassword();
+        driver = driverRule.getDriver();
+        main = new MainPage(driver);
+        main.open();
     }
 
     @DisplayName("Check is Account button move to Account page")
     @Test
     public void accountButtonMoveToAccountPage() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnLogInButton();
         login.enterUserEmail(email);
         login.enterUserPassword(password);

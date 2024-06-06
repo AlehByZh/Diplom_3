@@ -60,7 +60,7 @@ public class RegistrationPage {
     public void checkErrorPasswordText() {
         errorPasswordText = driver.findElement(errorPasswordMassage).getText();
         assert driver.findElement(errorPasswordMassage).isDisplayed();
-        assertEquals(errorPasswordText, expectedErrorPasswordText);
+        assertEquals(expectedErrorPasswordText, errorPasswordText);
     }
 
     @Step("Click on LogIn link")

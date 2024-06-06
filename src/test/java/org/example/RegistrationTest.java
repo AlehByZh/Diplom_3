@@ -5,12 +5,15 @@ import org.example.pages.LoginPage;
 import org.example.pages.MainPage;
 import org.example.pages.RegistrationPage;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class RegistrationTest {
+    private WebDriver driver;
+    private MainPage main;
     private final UserClient client = new UserClient();
     private String accessToken;
     private String userName = "Pietro";
@@ -21,12 +24,16 @@ public class RegistrationTest {
     @Rule
     public DriverRule driverRule = new DriverRule();
 
+    @Before
+    public void setUp() {
+        driver = driverRule.getDriver();
+        main = new MainPage(driver);
+        main.open();
+    }
+
     @DisplayName("Registration user happy path")
     @Test
     public void testRegistration() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnAccountButton();
         RegistrationPage registration = login.clickOnRegistrationLink();
         registration.enterUserName(userName);
@@ -47,9 +54,6 @@ public class RegistrationTest {
     @DisplayName("Check error text for min password symbols")
     @Test
     public void testMinPasswordSymbols() {
-        WebDriver driver = driverRule.getDriver();
-        MainPage main = new MainPage(driver);
-        main.open();
         LoginPage login = main.clickOnAccountButton();
         RegistrationPage registration = login.clickOnRegistrationLink();
         registration.enterUserName(userName);
