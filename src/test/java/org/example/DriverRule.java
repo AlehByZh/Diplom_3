@@ -34,12 +34,25 @@ public class DriverRule extends ExternalResource {
         WebDriverManager.chromedriver().driverVersion(System.getProperty("driver.version")).setup();
         var options = new ChromeOptions();
         options.setBinary(System.getProperty("webdriver.yandex.bin"));
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
     }
 
     private void initChrome() {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
     }
 
     public WebDriver getDriver() {
